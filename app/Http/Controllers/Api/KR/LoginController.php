@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\KPDE;
+namespace App\Http\Controllers\Api\KR;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,32 +11,28 @@ class LoginController extends Controller
 {
     public function index(Request $request)
     {
-        //validasi inputan
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
-        //response validasi error
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([$validator->errors()], 422);
         }
-
-        //get email dan password dari input
+        //get email dan password
         $credentials = $request->only('email', 'password');
 
         //cek jika email dan password tidak sesuai
-        if (!$token = auth()->guard('api_kpde')->attempt($credentials)) {
+        if (!$token = auth()->guard('api_kr')->attempt($credentials)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email atau password salah',
             ], 401);
         }
 
-        //jika login sukse
+        //jika login sukses
         return response()->json([
             'success' => true,
-            'user' => auth()->guard('api_kpde')->user(),
+            'user' => auth()->guard('api_kr')->user(),
             'token' => $token
         ], 200);
     }
@@ -45,7 +41,7 @@ class LoginController extends Controller
     {
         return response()->json([
             'success' => true,
-            'user' => auth()->guard('api_kpde')->user(),
+            'user' => auth()->guard('api_kr')->user(),
         ], 200);
     }
 
@@ -66,4 +62,5 @@ class LoginController extends Controller
             'token' => $refreshToken,
         ], 200);
     }
+
 }

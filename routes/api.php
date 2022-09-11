@@ -23,7 +23,7 @@ Route::prefix('pde')->group(function(){
     Route::post('/login', [App\Http\Controllers\Api\KPDE\LoginController::class, 'index', ['as' => 'pde']]);
 
     //route with midleware
-    Route::group(['middleware' => 'auth:api'], function(){
+    Route::group(['middleware' => 'auth:api_kpde'], function(){
         //get data user PDE
         Route::get('/user', [App\Http\Controllers\Api\KPDE\LoginController::class, 'getUser', ['as' => 'pde']]);
         //data belum terverifikasi
@@ -50,5 +50,22 @@ Route::prefix('pde')->group(function(){
         Route::post('/ubah-room/{id}', [App\Http\Controllers\Api\KPDE\RuanganController::class, 'ubahRoom', ['as' => 'pde']]);
         //hapus ruangan
         Route::delete('/hapus-room/{id}', [App\Http\Controllers\Api\KPDE\RuanganController::class, 'hapusRoom', ['as' => 'pde']]);
+    });
+});
+
+//kepala ruangan
+Route::prefix('kr')->group(function(){
+    //Route Login
+    Route::post('/login', [App\Http\Controllers\Api\KR\LoginController::class, 'index', ['as' => 'kr']]);
+    //route with middleware
+    Route::group(['middleware' => 'auth:api_kr'], function(){
+        //get data ruangan
+        Route::post('/data-ruangan', [App\Http\Controllers\Api\KR\KeluhanController::class, 'getDataRuangan', ['as' => 'kr']]);
+
+        //post keluhan
+        Route::post('/keluhan', [App\Http\Controllers\Api\KR\KeluhanController::class, 'ajukanKeluhan', ['as' => 'kr']]);
+
+        //list keluhan
+        Route::post('/list-keluhan', [App\Http\Controllers\Api\KR\KeluhanController::class, 'listKeluhan', ['as' => 'kr']]);
     });
 });

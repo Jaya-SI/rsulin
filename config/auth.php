@@ -40,7 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
+        'api_kpde' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+        'api_kr' => [
             'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
