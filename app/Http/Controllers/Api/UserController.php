@@ -48,7 +48,7 @@ class UserController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        $token = auth()->guard('api')->attempt($credentials);
+        $token = auth()->guard('api_karyawan')->attempt($credentials);
 
         if ($user) {
             return response()->json([

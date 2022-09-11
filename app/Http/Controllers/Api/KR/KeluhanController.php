@@ -76,4 +76,14 @@ class KeluhanController extends Controller
             'data' => $keluhan,
         ], 200);
     }
+
+    public function detailKeluhan($id)
+    {
+        $keluhan = Keluhan::with('ruangan')->with('user')->find($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Keluhan',
+            'data' => $keluhan,
+        ], 200);
+    }
 }

@@ -50,6 +50,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'api_teknisi' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+        'api_karyawan' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*

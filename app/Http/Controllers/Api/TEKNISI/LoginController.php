@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\KR;
+namespace App\Http\Controllers\API\TEKNISI;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,33 +15,34 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
         if ($validator->fails()) {
             return response()->json([$validator->errors()], 422);
         }
-        //get email dan password
+
+        //get email dan password dari inputan
         $credentials = $request->only('email', 'password');
 
-        //cek jika email dan password tidak sesuai
-        if (!$token = auth()->guard('api_kr')->attempt($credentials)) {
+        //cek email dan password jika tidak sesuai
+        if (!$token = auth()->guard('api_teknisi')->attempt($credentials)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Email atau password salah',
+                'message' => 'Email atau password salah'
             ], 401);
         }
-
         //jika login sukses
         return response()->json([
             'success' => true,
-            'user' => auth()->guard('api_kr')->user(),
-            'token' => $token
-        ], 200);
+            'user' => auth()->guard('api_teknisi')->user(),
+            'token' => $token,
+        ]);
     }
 
     public function getUser()
     {
         return response()->json([
             'success' => true,
-            'user' => auth()->guard('api_kr')->user(),
+            'user' => auth()->guard('api_teknisi')->user(),
         ], 200);
     }
 

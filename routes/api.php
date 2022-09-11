@@ -67,5 +67,28 @@ Route::prefix('kr')->group(function(){
 
         //list keluhan
         Route::post('/list-keluhan', [App\Http\Controllers\Api\KR\KeluhanController::class, 'listKeluhan', ['as' => 'kr']]);
+
+        //detail keluhan {id}
+        Route::get('/detail-keluhan/{id}', [App\Http\Controllers\Api\KR\KeluhanController::class, 'detailKeluhan', ['as' => 'kr']]);
+    });
+});
+
+//teknisi
+Route::prefix('teknisi')->group(function(){
+    //route login
+    Route::post('/login', [App\Http\Controllers\API\TEKNISI\LoginController::class, 'index', ['as' => 'teknisi']]);
+    //route with middleware
+    Route::group(['middleware' => 'auth:api_teknisi'], function (){
+        //get user
+        Route::get('/user', [App\Http\Controllers\API\TEKNISI\LoginController::class, 'getUser', ['as' => 'teknisi']]);
+
+        //list data keluhan (notif)
+        Route::get('/keluhan', [App\Http\Controllers\Api\TEKNISI\KeluhanController::class, 'listKeluhan', ['as' => 'teknisi']]);
+
+        //ambil perbaikan
+        Route::post('/ambil-perbaikan', [App\Http\Controllers\Api\TEKNISI\PerbaikanController::class, 'ambilPerbaikan', ['as' => 'teknisi']]);
+
+        //list perbaikan berdasarkan user teknisi
+        Route::post('/list-perbaikan', [App\Http\Controllers\API\TEKNISI\PerbaikanController::class, 'listPerbaikan', ['as' => 'teknisi']]);
     });
 });

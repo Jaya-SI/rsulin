@@ -20,12 +20,12 @@ class Keluhan extends Model
 
     public function ruangan()
     {
-        return $this->hasMany(Ruangan::class);
+        return $this->belongsTo(Ruangan::class, 'id_ruangan', 'id');
     }
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
     public function getImageAttribute($value)
